@@ -56,10 +56,10 @@ open(Filename) ->
 -spec open(Filename, timeout()) -> {ok, connection()} | {error, _} when
       Filename :: string().
 open(Filename, Timeout) ->
-    open(Filename, {readwrite, create}, Timeout).
+    open(Filename, Timeout, {readwrite, create}).
 
--spec open(Filename, tuple(), timeout()) -> {ok, connection()} | {error, _} when Filename :: string().
-open(Filename, Flags, Timeout) ->
+-spec open(Filename, timeout(), tuple()) -> {ok, connection()} | {error, _} when Filename :: string().
+open(Filename, Timeout, Flags) ->
     {ok, Connection} = esqlite3_nif:start(),
 
     Ref = make_ref(),
@@ -67,7 +67,8 @@ open(Filename, Flags, Timeout) ->
     case receive_answer(Ref, Timeout) of
         ok ->
             {ok, {connection, make_ref(), Connection}};
-        {error, _Msg} = Error -> Error
+        {error, _Msg} = Error ->
+	    Error
     end.
 
 %% @doc Execute a sql statement, returns a list with tuples.
@@ -191,7 +192,7 @@ fetchall(Statement) ->
     end.
 
 %% Try the step, when the database is busy,
--spec try_step(statement(), non_neg_integer()) -> 
+-spec try_step(statement(), non_neg_integer()) ->
                       '$done' |
                       term().
 try_step(_Statement, Tries) when Tries > 5 ->
