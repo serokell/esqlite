@@ -1,0 +1,6 @@
+{application, esqlite3,
+ [{description, "sqlite nif interface"},
+  {vsn, "20180329.160543"},
+  {modules, [esqlite3, esqlite3_nif]},
+  {licenses, ["Apache-2.0"]},
+  {applications, [kernel, stdlib]}]}.

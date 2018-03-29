@@ -40,7 +40,7 @@
 
 init() ->
     NifName = "esqlite3_nif",
-    NifFileName = case code:priv_dir(esqlite) of
+    NifFileName = case code:priv_dir(esqlite3) of
                       {error, bad_name} -> filename:join("priv", NifName);
                       Dir -> filename:join(Dir, NifName)
                   end,
