@@ -1,0 +1,4 @@
+This is [[https://github.com/mmzeeman/esqlite][esqlite]] with some patches on top:
+
+- Makefile with rebar3 pre-hook for compilation
+- SQLite has been updated from 3.18.0 to 3.22.0
