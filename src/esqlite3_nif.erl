@@ -40,11 +40,8 @@
 
 init() ->
     NifName = "esqlite3_nif",
-    NifFileName = case code:priv_dir(esqlite3) of
-                      {error, bad_name} -> filename:join("priv", NifName);
-                      Dir -> filename:join(Dir, NifName)
-                  end,
-    ok = erlang:load_nif(NifFileName, 0).
+    NifPath = filename:join(code:priv_dir(esqlite3), NifName),
+    ok = erlang:load_nif(NifPath, 0).
 
 %% @doc Start a low level thread which will can handle sqlite3 calls.
 %%
